@@ -1,0 +1,100 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to your ArtiLED Control",
+        "description": "Enter the Control's IP address or hostname, and the username and password you use to sign in to the Control's web app.",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password",
+          "assist_all": "Let Assist control all rooms",
+          "create_dashboard": "Create the ArtiCONTROL dashboard"
+        },
+        "data_description": {
+          "assist_all": "Lets Home Assistant's own voice assistant turn every room on and off, pause, skip and set the volume. Off by default: nothing is exposed to any voice assistant until you choose it. Alexa and Google are always chosen per room.",
+          "create_dashboard": "Adds an ArtiCONTROL dashboard to the sidebar with every room, its activities, Now Playing and voice settings. Created once: if you delete it, it stays deleted. Configure can create it again."
+        }
+      },
+      "reauth_confirm": {
+        "title": "ArtiCONTROL sign-in no longer works",
+        "description": "The Control at {host} rejected the stored credentials. Sign in again with your Control username and password. Your rooms, names and voice settings are kept.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "reconfigure": {
+        "title": "Change the Control's address",
+        "description": "Enter the Control's new IP address or hostname. Your rooms, names, areas and voice settings are kept. The username and password are only needed if the Control asks for them.",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the Control. Check the host and the network.",
+      "invalid_auth": "The Control did not accept that username or password.",
+      "token_refused": "The Control at that address needs you to sign in. Enter your Control username and password.",
+      "no_identity": "This Control has no identity yet. Finish its setup first.",
+      "too_old": "This Control is too old for ArtiCONTROL. Update the Control first.",
+      "wrong_control": "A different Control answers at that address. Enter the address of the Control already configured here."
+    },
+    "abort": {
+      "already_configured": "This Control is already configured. Its address and sign-in have been updated.",
+      "reauth_successful": "You are signed in again.",
+      "reauth_failed": "That configuration entry no longer exists.",
+      "reconfigure_successful": "The Control's address has been updated.",
+      "wrong_control": "Those credentials belong to a different Control. Sign in to the Control already configured here, or add the other Control as a new integration."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ArtiCONTROL",
+        "data": {
+          "assist_all_now": "Let Assist control all rooms (now)",
+          "create_dashboard_again": "Create the ArtiCONTROL dashboard again",
+          "all_favorites": "Make all favourites available to voice"
+        },
+        "data_description": {
+          "assist_all_now": "Exposes every room to Home Assistant's own voice assistant once. You can still turn rooms off for voice one by one afterwards.",
+          "create_dashboard_again": "Puts the ArtiCONTROL dashboard back in the sidebar. If a dashboard already exists at /artiled-control, it is kept as it is.",
+          "all_favorites": "Every heart on the Control becomes one voice command for the whole house (\"Thriller\"), kept up to date. It plays in the room where something can play it now, else the room started last, else the room below. Off: only the ones you add on the Voice page."
+        }
+      }
+    }
+  },
+  "issues": {
+    "wrong_control": {
+      "title": "A different Control answers at {host}",
+      "description": "{name} expects its own Control at {host}, but another Control answers there. Nothing was changed and the rooms stay unavailable. If your Control has a new address, open Settings > Devices & services > ArtiCONTROL > Reconfigure and enter it."
+    },
+    "ambiguous": {
+      "title": "Two Controls announce the same identity",
+      "description": "Two different addresses announced the identity of {name} ({ident}), so ArtiCONTROL did not follow either. This usually means a Control was cloned from another one. Give each Control its own identity, or enter the right address under Settings > Devices & services > ArtiCONTROL > Reconfigure."
+    },
+    "device_down": {
+      "title": "{device}{where} is not reachable",
+      "description": "The Control {name} cannot reach {device}{where}: it missed three checks in a row. Activities that use it will not work fully until it answers again.\n\nCheck that {device} is switched on and on the network, or check it with Edit on the Control's Devices page: {url}\n\nThis message goes away by itself when the Control reaches it again."
+    },
+    "favorites_capped": {
+      "title": "Not every favourite became a voice command",
+      "description": "{name} has more favourites than ArtiCONTROL makes voice commands for: it stops at {cap}, and left {left_out} out. Voice assistants (Alexa especially) handle very long lists badly. Remove hearts you do not say on the Control, or add the ones you do say by hand on the Voice page's Favourites tab."
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "activity_starting": "Activity starting",
+      "activity_started": "Activity started",
+      "activity_stopped": "Activity stopped (room off)",
+      "paused": "Playback paused",
+      "resumed": "Playback resumed"
+    },
+    "extra_fields": {
+      "activity_id": "Activity"
+    }
+  }
+}

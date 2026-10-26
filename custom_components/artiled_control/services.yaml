@@ -1,0 +1,194 @@
+start_activity:
+  name: Start activity
+  description: >-
+    Start one activity in one room or zone of the Control. Start only: to turn a
+    room off, turn off its media player - that runs the room's Off activity.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      example: "Control"
+      selector:
+        text:
+    entity_id:
+      name: Room
+      description: The room's ArtiCONTROL media player. Give this or unit.
+      required: false
+      selector:
+        entity:
+          integration: artiled_control
+          domain: media_player
+    unit:
+      name: Unit
+      description: The room or zone by its name as shown in Home Assistant. Give this or entity_id.
+      required: false
+      example: "Living Room"
+      selector:
+        text:
+    activity:
+      name: Activity
+      description: The activity's name or id on the Control.
+      required: true
+      example: "Watch Netflix"
+      selector:
+        text:
+add_voice_activity:
+  name: Add voice activity
+  description: >-
+    Give one activity in one room a spoken name. Creates a scene that voice
+    assistants can activate ("activate Netflix in the Living Room"), exposed to
+    Assist and to the cloud assistants switched on in Home Assistant.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      selector:
+        text:
+    entity_id:
+      name: Room
+      description: The room's ArtiCONTROL media player. Give this or unit.
+      required: false
+      selector:
+        entity:
+          integration: artiled_control
+          domain: media_player
+    unit:
+      name: Unit
+      description: The room or zone by its name as shown in Home Assistant. Give this or entity_id.
+      required: false
+      selector:
+        text:
+    activity:
+      name: Activity
+      description: The activity's name or id. Not the room's Off activity.
+      required: true
+      selector:
+        text:
+    name:
+      name: Spoken name
+      description: What you say. Default "<activity> in <room>". Must be unique across all Controls.
+      required: false
+      example: "Netflix in the Living Room"
+      selector:
+        text:
+remove_voice_activity:
+  name: Remove voice activity
+  description: Remove a spoken name, by the name itself or by its room and activity.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      selector:
+        text:
+    name:
+      name: Spoken name
+      description: The spoken name to remove.
+      required: false
+      selector:
+        text:
+    entity_id:
+      name: Room
+      description: The room's ArtiCONTROL media player (with activity).
+      required: false
+      selector:
+        entity:
+          integration: artiled_control
+          domain: media_player
+    unit:
+      name: Unit
+      description: The room or zone by name (with activity).
+      required: false
+      selector:
+        text:
+    activity:
+      name: Activity
+      description: The activity's name or id (with entity_id or unit).
+      required: false
+      selector:
+        text:
+add_voice_favorite:
+  name: Add voice favourite
+  description: >-
+    Give one favourite (a heart on the Control - album, playlist, movie) ONE
+    spoken name for the whole house ("Thriller"). The scene plays it where
+    something can play it now, else in the room started last, else in the room
+    chosen in Configure. Exposed like a voice activity.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      selector:
+        text:
+    play:
+      name: Play
+      description: The favourite's play object, exactly as the Control's /activity_favorites gives it.
+      required: true
+      selector:
+        object:
+    title:
+      name: Title
+      description: The favourite's title, for the default spoken name.
+      required: false
+      selector:
+        text:
+    type:
+      name: Kind
+      description: Album, Playlist, Radio, Track, Artist or Movie - used when two favourites share a title.
+      required: false
+      selector:
+        text:
+    name:
+      name: Spoken name
+      description: What you say. Default the title.
+      required: false
+      selector:
+        text:
+remove_voice_favorite:
+  name: Remove voice favourite
+  description: Remove a voice favourite, by its spoken name or by its play.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      selector:
+        text:
+    name:
+      name: Spoken name
+      required: false
+      selector:
+        text:
+    play:
+      name: Play
+      required: false
+      selector:
+        object:
+set_voice_favorites_all:
+  name: Make all favourites available to voice
+  description: >-
+    On: every heart on the Control becomes one voice favourite for the house, kept up to
+    date (at most 200; Repairs says how many were left out). Off: those made
+    automatically are removed; the ones you added stay.
+  fields:
+    control:
+      name: Control
+      description: Which Control (its name or ident). Needed only when more than one is configured.
+      required: false
+      selector:
+        text:
+    on:
+      name: On
+      required: true
+      selector:
+        boolean:
+    kind:
+      name: Kind
+      description: albums, playlists, artists or movies - leave empty for all of them.
+      required: false
+      selector:
+        select:
+          options: ["albums", "playlists", "artists", "movies"]
